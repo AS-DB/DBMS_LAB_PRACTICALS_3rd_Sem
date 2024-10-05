@@ -1,0 +1,114 @@
+ASSIGNMENT 5:-
+
+create a table student containg followinf fields SID,SNAME,SCOURSE,SFEE
+
+condition:-
+1.check for the student name second letter start with J
+2.check for list for courses available
+3.seaRCH FOR THE COURSES EXCEPT DBMS AND JAVA
+4.oUTPUT SCREEN DISPLAY SID as STUDENT ID
+5.DISPLAY list of student whose fees lies between 50000 to 80000
+		
+solution:-
+
+mysql> create table student
+    -> (
+    -> SID int(20),
+    -> SNAME varchar(20),
+    -> SCOURSE char(20),
+    -> SFEE int(20)
+    -> );
+Query OK, 0 rows affected, 2 warnings (0.14 sec)
+
+mysql> insert into student value(1234556,"ADITYA","JAVA",75000);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student value(12345567,"AJAY","DBMS",76000);
+Query OK, 1 row affected (0.36 sec)
+
+mysql> insert into student value(505505,"ABHILASH","C++",73000);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student value(731,"TARUN","C++",70000);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into student value(73134,"TEJESWAR","BIOLOGY",696969);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> delete from student where SID=73134;
+Query OK, 1 row affected (0.35 sec)
+
+mysql> insert into student value(73134,"TEJESWAR","BIOLOGY",56000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from student;
++----------+----------+---------+-------+
+| SID      | SNAME    | SCOURSE | SFEE  |
++----------+----------+---------+-------+
+|  1234556 | ADITYA   | JAVA    | 75000 |
+| 12345567 | AJAY     | DBMS    | 76000 |
+|   505505 | ABHILASH | C++     | 73000 |
+|      731 | TARUN    | C++     | 70000 |
+|    73134 | TEJESWAR | BIOLOGY | 56000 |
++----------+----------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> #1.
+mysql> select * from student where SNAME like '_J%';
++----------+-------+---------+-------+
+| SID      | SNAME | SCOURSE | SFEE  |
++----------+-------+---------+-------+
+| 12345567 | AJAY  | DBMS    | 76000 |
++----------+-------+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> #2.
+mysql> select DISTINCT SCOURSE from student;
++---------+
+| SCOURSE |
++---------+
+| JAVA    |
+| DBMS    |
+| C++     |
+| BIOLOGY |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> #3.
+mysql> select SCOURSE from student NOT IN ('JAVA','DBMS') ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT IN ('JAVA','DBMS')' at line 1
+mysql> select SCOURSE from student Where SCOURSE NOT IN ('JAVA','DBMS') ;
++---------+
+| SCOURSE |
++---------+
+| C++     |
+| C++     |
+| BIOLOGY |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> #4.
+mysql> select SID as STUDENT_ID from student ;
++------------+
+| STUDENT_ID |
++------------+
+|    1234556 |
+|   12345567 |
+|     505505 |
+|        731 |
+|      73134 |
++------------+
+5 rows in set (0.00 sec)
+
+mysql> #5.
+mysql> select * from student Where SFEE between 50000 and 80000 ;
++----------+----------+---------+-------+
+| SID      | SNAME    | SCOURSE | SFEE  |
++----------+----------+---------+-------+
+|  1234556 | ADITYA   | JAVA    | 75000 |
+| 12345567 | AJAY     | DBMS    | 76000 |
+|   505505 | ABHILASH | C++     | 73000 |
+|      731 | TARUN    | C++     | 70000 |
+|    73134 | TEJESWAR | BIOLOGY | 56000 |
++----------+----------+---------+-------+
+5 rows in set (0.00 sec)

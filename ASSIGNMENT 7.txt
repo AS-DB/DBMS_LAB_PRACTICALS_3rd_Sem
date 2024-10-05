@@ -1,0 +1,208 @@
+create table student having following fields
+sid,sname,sfee,sdept,scid
+
+condition:-
+1)take two student name as null and display their records
+2)make a descending order display of the table on the basis of sid
+3)update the two null student name as RAMESH AND SURESH
+4)display the sum,maximum,minimum,average fees taken by each department wise(CSE,CST,CSA)
+
+
+ANSWER)
+
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++----------------------------+
+| Database                   |
++----------------------------+
+| enterprise                 |
+| hospital_management_system |
+| information_schema         |
+| mysql                      |
+| performance_schema         |
+| student                    |
+| sys                        |
++----------------------------+
+7 rows in set (0.01 sec)
+
+mysql> use student;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| emp_data          |
+| empl              |
+| info              |
+| stuinfo           |
++-------------------+
+4 rows in set (0.01 sec)
+
+mysql> create table Student
+    -> (SID int(20),
+    -> SNAME varchar(20),
+    -> SFEE int(20),
+    -> SDEPT varchar(20),
+    -> SCID varchar(20)
+    -> );
+Query OK, 0 rows affected, 2 warnings (0.22 sec)
+
+mysql> #1
+
+mysql> insert into student value (1201,NULL,150000,"CSE","CSE");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into student value (1202,NULL,140000,"CSE","CST");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into student value (1203,"ADITYA",150000,"CSE","CSE");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student value (1204,"ABHILASH",130000,"CSE","CST");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student value (1205,"MALAYA",160000,"CSE","CSA");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into student value (1206,"PANKAJ",160000,"CSE","CSA");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student value (1207,"TARUN",150000,"CSE","CSE");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into student value (1208,"TEJASWAR",160000,"CSE","CSA");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into student value (1208,"SALLU BHAI",130000,"CSE","CST");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student value (1209,"SPIDEY",150000,"CSE","CSE");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student value (1210,"DEADPOOL",130000,"CSE","CST");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from STUDENT;
++------+------------+--------+-------+------+
+| SID  | SNAME      | SFEE   | SDEPT | SCID |
++------+------------+--------+-------+------+
+| 1201 | NULL       | 150000 | CSE   | CSE  |
+| 1202 | NULL       | 140000 | CSE   | CST  |
+| 1203 | ADITYA     | 150000 | CSE   | CSE  |
+| 1204 | ABHILASH   | 130000 | CSE   | CST  |
+| 1205 | MALAYA     | 160000 | CSE   | CSA  |
+| 1206 | PANKAJ     | 160000 | CSE   | CSA  |
+| 1207 | TARUN      | 150000 | CSE   | CSE  |
+| 1208 | TEJASWAR   | 160000 | CSE   | CSA  |
+| 1208 | SALLU BHAI | 130000 | CSE   | CST  |
+| 1209 | SPIDEY     | 150000 | CSE   | CSE  |
+| 1210 | DEADPOOL   | 130000 | CSE   | CST  |
++------+------------+--------+-------+------+
+11 rows in set (0.00 sec)
+
+mysql> #2
+mysql> select * from STUDENT order by SID desc;
++------+------------+--------+-------+------+
+| SID  | SNAME      | SFEE   | SDEPT | SCID |
++------+------------+--------+-------+------+
+| 1210 | DEADPOOL   | 130000 | CSE   | CST  |
+| 1209 | SPIDEY     | 150000 | CSE   | CSE  |
+| 1208 | TEJASWAR   | 160000 | CSE   | CSA  |
+| 1208 | SALLU BHAI | 130000 | CSE   | CST  |
+| 1207 | TARUN      | 150000 | CSE   | CSE  |
+| 1206 | PANKAJ     | 160000 | CSE   | CSA  |
+| 1205 | MALAYA     | 160000 | CSE   | CSA  |
+| 1204 | ABHILASH   | 130000 | CSE   | CST  |
+| 1203 | ADITYA     | 150000 | CSE   | CSE  |
+| 1202 | NULL       | 140000 | CSE   | CST  |
+| 1201 | NULL       | 150000 | CSE   | CSE  |
++------+------------+--------+-------+------+
+11 rows in set (0.00 sec)
+
+mysql> #3
+mysql> update student set SNAME="RAMESH" where SID=1202;
+Query OK, 1 row affected (0.20 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set SNAME="SURESH" where SID=1201;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from STUDENT;
++------+------------+--------+-------+------+
+| SID  | SNAME      | SFEE   | SDEPT | SCID |
++------+------------+--------+-------+------+
+| 1201 | SURESH     | 150000 | CSE   | CSE  |
+| 1202 | RAMESH     | 140000 | CSE   | CST  |
+| 1203 | ADITYA     | 150000 | CSE   | CSE  |
+| 1204 | ABHILASH   | 130000 | CSE   | CST  |
+| 1205 | MALAYA     | 160000 | CSE   | CSA  |
+| 1206 | PANKAJ     | 160000 | CSE   | CSA  |
+| 1207 | TARUN      | 150000 | CSE   | CSE  |
+| 1208 | TEJASWAR   | 160000 | CSE   | CSA  |
+| 1208 | SALLU BHAI | 130000 | CSE   | CST  |
+| 1209 | SPIDEY     | 150000 | CSE   | CSE  |
+| 1210 | DEADPOOL   | 130000 | CSE   | CST  |
++------+------------+--------+-------+------+
+11 rows in set (0.00 sec)
+
+mysql> #4
+mysql> select SDEPT ,COUNT(SFEE) from STUDENT  group by SDEPT;
++-------+-------------+
+| SDEPT | COUNT(SFEE) |
++-------+-------------+
+| CSE   |          11 |
++-------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select SDEPT ,SUM(SFEE) from STUDENT  group by SDEPT;
++-------+-----------+
+| SDEPT | SUM(SFEE) |
++-------+-----------+
+| CSE   |   1610000 |
++-------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select SDEPT ,AVG(SFEE) from STUDENT group by SDEPT;
++-------+-------------+
+| SDEPT | AVG(SFEE)   |
++-------+-------------+
+| CSE   | 146363.6364 |
++-------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select SDEPT ,MIN(SFEE) from STUDENT  group by SDEPT;
++-------+-----------+
+| SDEPT | MIN(SFEE) |
++-------+-----------+
+| CSE   |    130000 |
++-------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select SDEPT ,MAX(SFEE) from STUDENT group by SDEPT;
++-------+-----------+
+| SDEPT | MAX(SFEE) |
++-------+-----------+
+| CSE   |    160000 |
++-------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select SDEPT ,AVG(SFEE),SUM(SFEE),MIN(SFEE),MAX(SFEE) from STUDENT group by SDEPT;
++-------+-------------+-----------+-----------+-----------+
+| SDEPT | AVG(SFEE)   | SUM(SFEE) | MIN(SFEE) | MAX(SFEE) |
++-------+-------------+-----------+-----------+-----------+
+| CSE   | 146363.6364 |   1610000 |    130000 |    160000 |
++-------+-------------+-----------+-----------+-----------+
+1 row in set (0.00 sec)

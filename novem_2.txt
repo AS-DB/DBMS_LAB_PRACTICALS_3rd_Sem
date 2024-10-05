@@ -1,0 +1,302 @@
+create a database shop,inside shop create one table names as store--> pid,ename,quantity,price per piece and total price 
+
+mysql> create table store
+    -> (
+    -> PID int(20),
+    -> PNAME varchar(20),
+    -> Quantity int(20),
+    -> Price_per_piece int(20));
+Query OK, 0 rows affected, 3 warnings (0.12 sec)
+
+mysql> insert into store values (1111,"SOAP",50,1000);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into store values (1112,"RICE",50,2000);
+Query OK, 1 row affected (0.33 sec)
+
+mysql> insert into store values (1113,"DAL",50,200);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into store values (1114,"ALLU",50,20000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from store;
++------+-------+----------+-----------------+
+| PID  | PNAME | Quantity | Price_per_piece |
++------+-------+----------+-----------------+
+| 1111 | SOAP  |       50 |            1000 |
+| 1112 | RICE  |       50 |            2000 |
+| 1113 | DAL   |       50 |             200 |
+| 1114 | ALLU  |       50 |           20000 |
++------+-------+----------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select sum(Price_per_piece) from store;
++----------------------+
+| sum(Price_per_piece) |
++----------------------+
+|                23200 |
++----------------------+
+1 row in set (0.12 sec)
+
+mysql> select *,(Price_per_piece*Quantity) from store;
++------+-------+----------+-----------------+----------------------------+
+| PID  | PNAME | Quantity | Price_per_piece | (Price_per_piece*Quantity) |
++------+-------+----------+-----------------+----------------------------+
+| 1111 | SOAP  |       50 |            1000 |                      50000 |
+| 1112 | RICE  |       50 |            2000 |                     100000 |
+| 1113 | DAL   |       50 |             200 |                      10000 |
+| 1114 | ALLU  |       50 |           20000 |                    1000000 |
++------+-------+----------+-----------------+----------------------------+
+4 rows in set (0.04 sec)
+
+mysql> select *,(Price_per_piece*Quantity) as TOTAL_PRICE from store;
++------+-------+----------+-----------------+-------------+
+| PID  | PNAME | Quantity | Price_per_piece | TOTAL_PRICE |
++------+-------+----------+-----------------+-------------+
+| 1111 | SOAP  |       50 |            1000 |       50000 |
+| 1112 | RICE  |       50 |            2000 |      100000 |
+| 1113 | DAL   |       50 |             200 |       10000 |
+| 1114 | ALLU  |       50 |           20000 |     1000000 |
++------+-------+----------+-----------------+-------------+
+4 rows in set (0.00 sec)
+
+#2
+mysql> #second method
+mysql> drop table store;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> create table store
+    -> (
+    -> PID int(20),
+    -> PNAME varchar(20),
+    -> Quantity int(20),
+    -> Price_per_piece int(20),
+    -> tp int as (Quantity*Price_per_piece)
+    -> );
+Query OK, 0 rows affected, 3 warnings (0.10 sec)
+
+mysql> select *  from store;
+Empty set (0.00 sec)
+
+mysql> insert into store(PID,PNAME,Quantity,Price_per_piece) values (1111,"SOAP",50,1000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into store(PID,PNAME,Quantity,Price_per_piece) values (1112,"RICE",50,10000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into store(PID,PNAME,Quantity,Price_per_piece) values (1113,"DAL",50,10000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into store(PID,PNAME,Quantity,Price_per_piece) values (1112,"ALLU",50,100000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select *  from store;
++------+-------+----------+-----------------+---------+
+| PID  | PNAME | Quantity | Price_per_piece | tp      |
++------+-------+----------+-----------------+---------+
+| 1111 | SOAP  |       50 |            1000 |   50000 |
+| 1112 | RICE  |       50 |           10000 |  500000 |
+| 1113 | DAL   |       50 |           10000 |  500000 |
+| 1112 | ALLU  |       50 |          100000 | 5000000 |
++------+-------+----------+-----------------+---------+
+4 rows in set (0.00 sec)	
+
+
+Q2.
+create a table student having the attributes like SID , SNAME, SUB_1,SUB_2,SUB_3
+
+calclulate the total mark  for each student and store inside student table 
+calculate the percentage of marks obtained by the student and also store inside student tabel 
+
+
+solution)
+
+
+mysql> create table Stu_info
+    -> (
+    -> SID int(20),
+    -> SNAME varchar(20),
+    -> SUB_01 varchar (20),
+    -> SUB_02 varchar (20),
+    -> SUB_03 varchar (20));
+Query OK, 0 rows affected, 1 warning (0.28 sec)
+
+mysql> desc stu_info;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| SID    | int         | YES  |     | NULL    |       |
+| SNAME  | varchar(20) | YES  |     | NULL    |       |
+| SUB_01 | varchar(20) | YES  |     | NULL    |       |
+| SUB_02 | varchar(20) | YES  |     | NULL    |       |
+| SUB_03 | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+
+mysql> insert into stu_info values (11,"Aditya","20","30","40");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into stu_info values (11,"Aditya","20","30","40");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into stu_info values (11,"Aditya","20","30","40");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select *,(SUB_01+SUB_02+SUB_03) from stu_info;
++------+--------+--------+--------+--------+------------------------+
+| SID  | SNAME  | SUB_01 | SUB_02 | SUB_03 | (SUB_01+SUB_02+SUB_03) |
++------+--------+--------+--------+--------+------------------------+
+|   11 | Aditya | 20     | 30     | 40     |                     90 |
+|   11 | Aditya | 20     | 30     | 40     |                     90 |
+|   11 | Aditya | 20     | 30     | 40     |                     90 |
++------+--------+--------+--------+--------+------------------------+
+3 rows in set (0.03 sec)
+
+mysql> select *,(SUB_01+SUB_02+SUB_03) as total_mark from stu_info;
++------+--------+--------+--------+--------+------------+
+| SID  | SNAME  | SUB_01 | SUB_02 | SUB_03 | total_mark |
++------+--------+--------+--------+--------+------------+
+|   11 | Aditya | 20     | 30     | 40     |         90 |
+|   11 | Aditya | 20     | 30     | 40     |         90 |
+|   11 | Aditya | 20     | 30     | 40     |         90 |
++------+--------+--------+--------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> #method 2
+mysql> create table Stu_info
+    -> (
+    -> SID int(20),
+    -> SNAME varchar(20),
+    -> SUB_01 varchar (20),
+    -> SUB_02 varchar (20),
+    -> SUB_03 varchar (20));
+Query OK, 0 rows affected, 1 warning (0.17 sec)
+
+mysql> insert into stu_info values (11,"Aditya","20","30","40");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into stu_info values (11,"Aditya","20","30","40");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into stu_info values (11,"Aditya","20","30","40");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into stu_info values (11,"Aditya","20","30","40");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select *,(((SUB_01+SUB_02+SUB_03)/120)*100) as percentage from stu_info;
++------+--------+--------+--------+--------+------------+
+| SID  | SNAME  | SUB_01 | SUB_02 | SUB_03 | percentage |
++------+--------+--------+--------+--------+------------+
+|   11 | Aditya | 20     | 30     | 40     |         75 |
+|   11 | Aditya | 20     | 30     | 40     |         75 |
+|   11 | Aditya | 20     | 30     | 40     |         75 |
+|   11 | Aditya | 20     | 30     | 40     |         75 |
++------+--------+--------+--------+--------+------------+
+4 rows in set (0.00 sec)
+
+
+Q3.Modification in Q1 adding new tables deleting tp
+-->SP
+-->SPC
+-->POL
+-->PPOL
+
+solution)
+mysql> alter table store drop tp;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table store add SPC int(20);
+Query OK, 0 rows affected, 1 warning (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> alter table store add SP int(20);
+Query OK, 0 rows affected, 1 warning (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc store;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| PID             | int         | YES  |     | NULL    |       |
+| PNAME           | varchar(20) | YES  |     | NULL    |       |
+| Quantity        | int         | YES  |     | NULL    |       |
+| Price_per_piece | int         | YES  |     | NULL    |       |
+| SPC             | int         | YES  |     | NULL    |       |
+| SP              | int         | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> update store set SPC=1000,SP=999 where PID=1111;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update store set SPC=1000,SP=1001 where PID=1112;
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update store set SPC=1000,SP=1100 where PID=1113;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update store set SPC=1000,SP=880 where PID=1114;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from store;
++------+-------+----------+-----------------+------+------+
+| PID  | PNAME | Quantity | Price_per_piece | SPC  | SP   |
++------+-------+----------+-----------------+------+------+
+| 1111 | SOAP  |       50 |            1000 | 1000 |  999 |
+| 1112 | RICE  |       50 |           10000 | 1000 | 1001 |
+| 1113 | DAL   |       50 |           10000 | 1000 | 1100 |
+| 1112 | ALLU  |       50 |          100000 | 1000 | 1001 |
++------+-------+----------+-----------------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select *,((SP-SPC)) as profit from store;
++------+-------+----------+-----------------+------+------+--------+
+| PID  | PNAME | Quantity | Price_per_piece | SPC  | SP   | profit |
++------+-------+----------+-----------------+------+------+--------+
+| 1111 | SOAP  |       50 |            1000 | 1000 |  999 |     -1 |
+| 1112 | RICE  |       50 |           10000 | 1000 | 1001 |      1 |
+| 1113 | DAL   |       50 |           10000 | 1000 | 1100 |    100 |
+| 1112 | ALLU  |       50 |          100000 | 1000 | 1001 |      1 |
++------+-------+----------+-----------------+------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select *,((SPC-SP)) as loss from store;
++------+-------+----------+-----------------+------+------+------+
+| PID  | PNAME | Quantity | Price_per_piece | SPC  | SP   | loss |
++------+-------+----------+-----------------+------+------+------+
+| 1111 | SOAP  |       50 |            1000 | 1000 |  999 |    1 |
+| 1112 | RICE  |       50 |           10000 | 1000 | 1001 |   -1 |
+| 1113 | DAL   |       50 |           10000 | 1000 | 1100 | -100 |
+| 1112 | ALLU  |       50 |          100000 | 1000 | 1001 |   -1 |
++------+-------+----------+-----------------+------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select *,(((SP-SPC)/Price_per_piece)*100) as profit_percent from store;
++------+-------+----------+-----------------+------+------+----------------+
+| PID  | PNAME | Quantity | Price_per_piece | SPC  | SP   | profit_percent |
++------+-------+----------+-----------------+------+------+----------------+
+| 1111 | SOAP  |       50 |            1000 | 1000 |  999 |        -0.1000 |
+| 1112 | RICE  |       50 |           10000 | 1000 | 1001 |         0.0100 |
+| 1113 | DAL   |       50 |           10000 | 1000 | 1100 |         1.0000 |
+| 1112 | ALLU  |       50 |          100000 | 1000 | 1001 |         0.0010 |
++------+-------+----------+-----------------+------+------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select *,(((SPC-SP)/Price_per_piece)*100) as profit_percent from store;
++------+-------+----------+-----------------+------+------+----------------+
+| PID  | PNAME | Quantity | Price_per_piece | SPC  | SP   | profit_percent |
++------+-------+----------+-----------------+------+------+----------------+
+| 1111 | SOAP  |       50 |            1000 | 1000 |  999 |         0.1000 |
+| 1112 | RICE  |       50 |           10000 | 1000 | 1001 |        -0.0100 |
+| 1113 | DAL   |       50 |           10000 | 1000 | 1100 |        -1.0000 |
+| 1112 | ALLU  |       50 |          100000 | 1000 | 1001 |        -0.0010 |
++------+-------+----------+-----------------+------+------+----------------+
+4 rows in set (0.00 sec)

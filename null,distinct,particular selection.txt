@@ -1,0 +1,234 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++----------------------------+
+| Database                   |
++----------------------------+
+| enterprise                 |
+| hospital_management_system |
+| information_schema         |
+| mysql                      |
+| performance_schema         |
+| student                    |
+| sys                        |
++----------------------------+
+7 rows in set (0.14 sec)
+
+mysql> use enterprise;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_enterprise |
++----------------------+
+| data                 |
+| employee             |
+| employee3            |
++----------------------+
+3 rows in set (0.00 sec)
+
+mysql> create table EMPLOYEE_2
+    -> (
+    -> ECODE int(20),
+    -> ENAME varchar(20),
+    -> GENDER varchar(10),
+    -> GRADE varchar(5),
+    -> GROSS varchar(20)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.64 sec)
+
+mysql> insert into EMPLOYEE_2 (1001,"RAVI","M","E4","50000");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1001,"RAVI","M","E4","50000")' at line 1
+mysql> insert into EMPLOYEE_2  value (1001,"RAVI","M","E4","50000");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into EMPLOYEE_2  value (1002,"AKASH","M","A1","35000");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into EMPLOYEE_2  value (1004,"NEELA","F","B2","38965");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into EMPLOYEE_2  value (1005,"SUNNY","M","A2","30000");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into EMPLOYEE_2  value (1006,"RUBY","F","A1","45000");
+Query OK, 1 row affected (0.37 sec)
+
+mysql> insert into EMPLOYEE_2  value (1009,"NEEMA","F","A2","52000");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from EMPLOYEE_2;
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1001 | RAVI  | M      | E4    | 50000 |
+|  1002 | AKASH | M      | A1    | 35000 |
+|  1004 | NEELA | F      | B2    | 38965 |
+|  1005 | SUNNY | M      | A2    | 30000 |
+|  1006 | RUBY  | F      | A1    | 45000 |
+|  1009 | NEEMA | F      | A2    | 52000 |
++-------+-------+--------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table EMPLOYEE_2 add EAGE int(20);
+Query OK, 0 rows affected, 1 warning (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from EMPLOYEE_2;
++-------+-------+--------+-------+-------+------+
+| ECODE | ENAME | GENDER | GRADE | GROSS | EAGE |
++-------+-------+--------+-------+-------+------+
+|  1001 | RAVI  | M      | E4    | 50000 | NULL |
+|  1002 | AKASH | M      | A1    | 35000 | NULL |
+|  1004 | NEELA | F      | B2    | 38965 | NULL |
+|  1005 | SUNNY | M      | A2    | 30000 | NULL |
+|  1006 | RUBY  | F      | A1    | 45000 | NULL |
+|  1009 | NEEMA | F      | A2    | 52000 | NULL |
++-------+-------+--------+-------+-------+------+
+6 rows in set (0.00 sec)
+
+mysql> alter table Employee_2 drop EAGE;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from EMPLOYEE_2;
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1001 | RAVI  | M      | E4    | 50000 |
+|  1002 | AKASH | M      | A1    | 35000 |
+|  1004 | NEELA | F      | B2    | 38965 |
+|  1005 | SUNNY | M      | A2    | 30000 |
+|  1006 | RUBY  | F      | A1    | 45000 |
+|  1009 | NEEMA | F      | A2    | 52000 |
++-------+-------+--------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select ECODE,ENAME,GROSS from employee_2;
++-------+-------+-------+
+| ECODE | ENAME | GROSS |
++-------+-------+-------+
+|  1001 | RAVI  | 50000 |
+|  1002 | AKASH | 35000 |
+|  1004 | NEELA | 38965 |
+|  1005 | SUNNY | 30000 |
+|  1006 | RUBY  | 45000 |
+|  1009 | NEEMA | 52000 |
++-------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> #select for particular row
+mysql> Select from employee_2 where ECODE=1001;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employee_2 where ECODE=1001' at line 1
+mysql> Select * from employee_2 where ECODE=1001;
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1001 | RAVI  | M      | E4    | 50000 |
++-------+-------+--------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select distinct GENDER FROM EMPLOYEE_2;
++--------+
+| GENDER |
++--------+
+| M      |
+| F      |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> #column aliases
+mysql> select GENDER as GEND from EMPLOYEE_2;
++------+
+| GEND |
++------+
+| M    |
+| M    |
+| F    |
+| M    |
+| F    |
+| F    |
++------+
+6 rows in set (0.00 sec)
+
+mysql> select from EMPLOYEE_2 where GROSS between 25000 and 35000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from EMPLOYEE_2 where GROSS between 25000 and 35000' at line 1
+mysql> select * from EMPLOYEE_2 where GROSS between 25000 and 35000;
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1002 | AKASH | M      | A1    | 35000 |
+|  1005 | SUNNY | M      | A2    | 30000 |
++-------+-------+--------+-------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from EMPLOYEE_2 where ENAME in ('SUNNY');
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1005 | SUNNY | M      | A2    | 30000 |
++-------+-------+--------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from EMPLOYEE_2 where ENAME not in ('SUNNY');
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1001 | RAVI  | M      | E4    | 50000 |
+|  1002 | AKASH | M      | A1    | 35000 |
+|  1004 | NEELA | F      | B2    | 38965 |
+|  1006 | RUBY  | F      | A1    | 45000 |
+|  1009 | NEEMA | F      | A2    | 52000 |
++-------+-------+--------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from EMPLOYEE_2 where ENAME like 'R%';
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1001 | RAVI  | M      | E4    | 50000 |
+|  1006 | RUBY  | F      | A1    | 45000 |
++-------+-------+--------+-------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from EMPLOYEE_2 where ENAME like '_Y%';
+Empty set (0.00 sec)
+
+mysql> select * from EMPLOYEE_2 where ENAME like 'Y%';
+Empty set (0.00 sec)
+
+mysql> select * from EMPLOYEE_2 where ENAME like '%Y';
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1005 | SUNNY | M      | A2    | 30000 |
+|  1006 | RUBY  | F      | A1    | 45000 |
++-------+-------+--------+-------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from EMPLOYEE_2 where ENAME like '%N_';
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1005 | SUNNY | M      | A2    | 30000 |
++-------+-------+--------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from EMPLOYEE_2 where ENAME like '_U%';
++-------+-------+--------+-------+-------+
+| ECODE | ENAME | GENDER | GRADE | GROSS |
++-------+-------+--------+-------+-------+
+|  1005 | SUNNY | M      | A2    | 30000 |
+|  1006 | RUBY  | F      | A1    | 45000 |
++-------+-------+--------+-------+-------+
+2 rows in set (0.00 sec)

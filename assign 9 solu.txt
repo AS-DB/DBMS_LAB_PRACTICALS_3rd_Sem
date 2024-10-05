@@ -1,0 +1,119 @@
+-- Create the employee table
+CREATE TABLE employee (
+    EID INT PRIMARY KEY,
+    ENAME VARCHAR(50),
+    ESAL DECIMAL(10, 2),
+    EADD VARCHAR(100)
+);
+
+-- Create the dept table with a foreign key referencing the employee table and cascading updates
+CREATE TABLE dept (
+    DeptNO INT PRIMARY KEY,
+    Dname VARCHAR(50),
+    Eid INT,
+    FOREIGN KEY (Eid) REFERENCES employee(EID) ON UPDATE CASCADE
+);
+
+-- Insert some sample data into the tables
+INSERT INTO employee (EID, ENAME, ESAL, EADD)
+VALUES
+    (101, 'John', 50000.00, 'Address 1'),
+    (102, 'Jane', 60000.00, 'Address 2'),
+    (103, 'Ram', 55000.00, 'Address 3'),
+    (104, 'Alice', 62000.00, 'Address 4'),
+    (105, 'Eve', 53000.00, 'Address 5');
+
+INSERT INTO dept (DeptNO, Dname, Eid)
+VALUES
+    (1, 'HR', 101),
+    (2, 'Finance', 102),
+    (3, 'Engineering', 103),
+    (4, 'Marketing', 104),
+    (5, 'Sales', 105);
+
+-- Update EID 103 to 301 in the employee table, and observe the cascading update in the dept table
+UPDATE employee SET EID = 301 WHERE EID = 103;
+
+-- Verify the updated data in the dept table
+SELECT * FROM dept;
+
+
+_________________________________________________________________________________
+-- Create the employee table
+CREATE TABLE employee (
+    EID INT PRIMARY KEY,
+    ENAME VARCHAR(50),
+    ESAL DECIMAL(10, 2),
+    EADD VARCHAR(100)
+);
+
+-- Create the dept table with a foreign key referencing the employee table and set null on delete
+CREATE TABLE dept (
+    DeptNO INT PRIMARY KEY,
+    Dname VARCHAR(50),
+    Eid INT,
+    FOREIGN KEY (Eid) REFERENCES employee(EID) ON DELETE SET NULL
+);
+
+-- Insert some sample data into the tables
+INSERT INTO employee (EID, ENAME, ESAL, EADD)
+VALUES
+    (101, 'John', 50000.00, 'Address 1'),
+    (102, 'Jane', 60000.00, 'Address 2'),
+    (103, 'Ram', 55000.00, 'Address 3'),
+    (104, 'Alice', 62000.00, 'Address 4'),
+    (105, 'Eve', 53000.00, 'Address 5');
+
+INSERT INTO dept (DeptNO, Dname, Eid)
+VALUES
+    (1, 'HR', 101),
+    (2, 'Finance', 102),
+    (3, 'Engineering', 103),
+    (4, 'Marketing', 104),
+    (5, 'Sales', 105);
+
+-- Delete EID 105 in the employee table, and observe the set null operation in the dept table
+DELETE FROM employee WHERE EID = 105;
+
+-- Verify the updated data in the dept table
+SELECT * FROM dept;
+________________________________________________________________________________________________________
+
+
+output of cascading:-
+dept
++--------+------------+------+
+| DeptNO | Dname      | Eid  |
++--------+------------+------+
+| 1      | HR         | 101  |
+| 2      | Finance    | 102  |
+| 3      | Engineering| 301  | <-- EID 103 updated to 301
+| 4      | Marketing  | 104  |
+| 5      | Sales      | 105  |
++--------+------------+------+
+_________________________________________________________
+output of set null
+
+emp
++-----+-------+---------+-----------+
+| EID | ENAME | ESAL    | EADD      |
++-----+-------+---------+-----------+
+| 101 | John  | 50000.00| Address 1 |
+| 102 | Jane  | 60000.00| Address 2 |
+| 103 | Ram   | 55000.00| Address 3 |
+| 104 | Alice | 62000.00| Address 4 |
++-----+-------+---------+-----------+
+
+dept
++--------+------------+------+
+| DeptNO | Dname      | Eid  |
++--------+------------+------+
+| 1      | HR         | 101  |
+| 2      | Finance    | 102  |
+| 3      | Engineering| 103  |
+| 4      | Marketing  | 104  |
+| 5      | Sales      | NULL | <-- EID 105 has been set to NULL
++--------+------------+------+
+
+
+

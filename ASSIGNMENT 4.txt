@@ -1,0 +1,134 @@
+ASSIGNMENT 4:-
+--------------------
+check for the autocommit status, if it is on make it off 
+use enterprise database create a table name as employee3 (enter atleast five records) and
+now apply some save points and insert some records to employee and apply rollback to created save point and check the data.
+
+
+
+solution:-
+
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++----------------------------+
+| Database                   |
++----------------------------+
+| enterprise                 |
+| hospital_management_system |
+| information_schema         |
+| mysql                      |
+| performance_schema         |
+| student                    |
+| sys                        |
++----------------------------+
+7 rows in set (0.02 sec)
+
+mysql> use enterprise;
+Database changed
+
+mysql> #checking for autocommit is on or off
+mysql> select @@autocommit;
++--------------+
+| @@autocommit |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> set @@autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @@autocommit;
++--------------+
+| @@autocommit |
++--------------+
+|            0 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> create table employee3
+    -> (
+    -> EID varchar(20),
+    -> EName varchar(20),
+    -> ESalary char(20)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> insert into employee3 value("22CSE902","ADITYA DAS","25000000");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee3 value("22CSE644","ABHILASH","2500000");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee3 value("22CSE6404","ABHILASH PATEL","2500000");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee3 value("22CSE6404","ADITYA","250000000");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee3 value("22CSE63404","MALAYA","250000");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee3;
++------------+----------------+-----------+
+| EID        | EName          | ESalary   |
++------------+----------------+-----------+
+| 22CSE902   | ADITYA DAS     | 25000000  |
+| 22CSE644   | ABHILASH       | 2500000   |
+| 22CSE6404  | ABHILASH PATEL | 2500000   |
+| 22CSE6404  | ADITYA         | 250000000 |
+| 22CSE63404 | MALAYA         | 250000    |
++------------+----------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> savepoint save_01;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into employee3 value("22CSE864","DEBABRATA","250000000");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee3 value("22CSE1066","PANKAJ","2500000");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee3;
++------------+----------------+-----------+
+| EID        | EName          | ESalary   |
++------------+----------------+-----------+
+| 22CSE902   | ADITYA DAS     | 25000000  |
+| 22CSE644   | ABHILASH       | 2500000   |
+| 22CSE6404  | ABHILASH PATEL | 2500000   |
+| 22CSE6404  | ADITYA         | 250000000 |
+| 22CSE63404 | MALAYA         | 250000    |
+| 22CSE864   | DEBABRATA      | 250000000 |
+| 22CSE1066  | PANKAJ         | 2500000   |
++------------+----------------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> rollback to save_01;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from employee3;
++------------+----------------+-----------+
+| EID        | EName          | ESalary   |
++------------+----------------+-----------+
+| 22CSE902   | ADITYA DAS     | 25000000  |
+| 22CSE644   | ABHILASH       | 2500000   |
+| 22CSE6404  | ABHILASH PATEL | 2500000   |
+| 22CSE6404  | ADITYA         | 250000000 |
+| 22CSE63404 | MALAYA         | 250000    |
++------------+----------------+-----------+
+5 rows in set (0.00 sec)
+
+

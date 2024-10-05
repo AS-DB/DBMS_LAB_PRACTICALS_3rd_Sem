@@ -1,0 +1,217 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select @@autocommit;
++--------------+
+| @@autocommit |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> set @@autocommit=1;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show databases;
++----------------------------+
+| Database                   |
++----------------------------+
+| enterprise                 |
+| hospital_management_system |
+| information_schema         |
+| mysql                      |
+| performance_schema         |
+| student                    |
+| sys                        |
++----------------------------+
+7 rows in set (0.05 sec)
+
+mysql> use student
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| info              |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> set @@autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @@autocommit;
++--------------+
+| @@autocommit |
++--------------+
+|            0 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> create table stuinfo
+    -> (Name varchar(20),
+    -> ID varchar(20),
+    -> Phone varchar(20)
+    -> );
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> insert into stuinfo value("ADITYA","CSE902","001");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into stuinfo value("ADITYA das","CSE9022","3001");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stuinfo value("Abhilash","CSE90d22","30f01");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from stuinfo;
++------------+----------+-------+
+| Name       | ID       | Phone |
++------------+----------+-------+
+| ADITYA     | CSE902   | 001   |
+| ADITYA das | CSE9022  | 3001  |
+| Abhilash   | CSE90d22 | 30f01 |
++------------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql>mysql> rollback;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from stuinfo;
+Empty set (0.00 sec)
+
+mysql> select * from stuinfo;
+Empty set (0.00 sec)
+
+mysql> insert into stuinfo value("ADITYA","CSE902","001");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stuinfo value("ADITYA das","CSE9022","3001");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stuinfo value("Abhilash","CSE90d22","30f01");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from stuinfo;
++------------+----------+-------+
+| Name       | ID       | Phone |
++------------+----------+-------+
+| ADITYA     | CSE902   | 001   |
+| ADITYA das | CSE9022  | 3001  |
+| Abhilash   | CSE90d22 | 30f01 |
++------------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> savepoint last_save;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into stuinfo value("ADITYA yo","CSE9a0d2","00as1");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint save;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into stuinfo value("ADITYA yos","CSE9a0asd2","00as1aa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint save_2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from stuinfo;
++------------+------------+---------+
+| Name       | ID         | Phone   |
++------------+------------+---------+
+| ADITYA     | CSE902     | 001     |
+| ADITYA das | CSE9022    | 3001    |
+| Abhilash   | CSE90d22   | 30f01   |
+| ADITYA yo  | CSE9a0d2   | 00as1   |
+| ADITYA yos | CSE9a0asd2 | 00as1aa |
++------------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> rollback to save_2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from stuinfo;
++------------+------------+---------+
+| Name       | ID         | Phone   |
++------------+------------+---------+
+| ADITYA     | CSE902     | 001     |
+| ADITYA das | CSE9022    | 3001    |
+| Abhilash   | CSE90d22   | 30f01   |
+| ADITYA yo  | CSE9a0d2   | 00as1   |
+| ADITYA yos | CSE9a0asd2 | 00as1aa |
++------------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> rollback to save;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from stuinfo;
++------------+----------+-------+
+| Name       | ID       | Phone |
++------------+----------+-------+
+| ADITYA     | CSE902   | 001   |
+| ADITYA das | CSE9022  | 3001  |
+| Abhilash   | CSE90d22 | 30f01 |
+| ADITYA yo  | CSE9a0d2 | 00as1 |
++------------+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> rollback to last_save;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from stuinfo;
++------------+----------+-------+
+| Name       | ID       | Phone |
++------------+----------+-------+
+| ADITYA     | CSE902   | 001   |
+| ADITYA das | CSE9022  | 3001  |
+| Abhilash   | CSE90d22 | 30f01 |
++------------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into stuinfo value("ADITYA yoasds","CSE9a0asdasd2","00aasds1aa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stuinfo value("ADITYAas yoasds","CSE9a0asdasdsd2","00aasds1asdaa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from stuinfo;
++-----------------+-----------------+---------------+
+| Name            | ID              | Phone         |
++-----------------+-----------------+---------------+
+| ADITYA          | CSE902          | 001           |
+| ADITYA das      | CSE9022         | 3001          |
+| Abhilash        | CSE90d22        | 30f01         |
+| ADITYA yoasds   | CSE9a0asdasd2   | 00aasds1aa    |
+| ADITYAas yoasds | CSE9a0asdasdsd2 | 00aasds1asdaa |
++-----------------+-----------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from stuinfo;
++-----------------+-----------------+---------------+
+| Name            | ID              | Phone         |
++-----------------+-----------------+---------------+
+| ADITYA          | CSE902          | 001           |
+| ADITYA das      | CSE9022         | 3001          |
+| Abhilash        | CSE90d22        | 30f01         |
+| ADITYA yoasds   | CSE9a0asdasd2   | 00aasds1aa    |
+| ADITYAas yoasds | CSE9a0asdasdsd2 | 00aasds1asdaa |
++-----------------+-----------------+---------------+
+5 rows in set (0.00 sec)

@@ -1,0 +1,96 @@
+LAST LAB:
+________________________________
+
+
+WAP to create one table name as student  having attributes like sid,sname,department,mark1,mark2,mark3,mark4
+
+Contidion:-
+
+1.calculate  the total marks, percentage, cgpa for each student
+2.apply order by and grup by clause on the student table
+3. Display each department name distinctly
+4.Find out the student name having last letter S and second letter U int their name
+
+solution:-
+
+ create table student
+    -> (
+    -> SID int,
+    -> SName varchar(20),
+    -> Department varchar(20),
+    -> Mark1 varchar(20),
+    -> Mark2 varchar(20),
+    -> Mark3 varchar(20));
+Query OK, 0 rows affected (0.66 sec)
+
+mysql> insert into student values (1,"ADITYA DAS","CSE","23","24","25");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student values (2,"ADITYA","CSE","28","27","26");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into student values (3,"ABHILASH","CST","29","27","26");
+Query OK, 1 row affected (0.35 sec)
+
+mysql> insert into student values (4,"ABHILASH MANGO PATEL","CST","29","27","30");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into student values (5,"aus","CST","29","27","30");s
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student values (5,"lus","CST","29","27","30");
+Query OK, 1 row affected (0.11 sec)
+
+mysql>#1
+mysql> select *,(Mark1+Mark2+Mark3) as Total_Marks,(((Mark1+Mark2+Mark3)/90)*100) as Percentage from student;
++------+----------------------+------------+-------+-------+-------+-------------+-------------------+
+| SID  | SName                | Department | Mark1 | Mark2 | Mark3 | Total_Marks | Percentage        |
++------+----------------------+------------+-------+-------+-------+-------------+-------------------+
+|    1 | ADITYA DAS           | CSE        | 23    | 24    | 25    |          72 |                80 |
+|    2 | ADITYA               | CSE        | 28    | 27    | 26    |          81 |                90 |
+|    3 | ABHILASH             | CST        | 29    | 27    | 26    |          82 | 91.11111111111111 |
+|    4 | ABHILASH MANGO PATEL | CST        | 29    | 27    | 30    |          86 | 95.55555555555556 |
+|    5 | aus                  | CST        | 29    | 27    | 30    |          86 | 95.55555555555556 |
+|    5 | lus                  | CST        | 29    | 27    | 30    |          86 | 95.55555555555556 |
++------+----------------------+------------+-------+-------+-------+-------------+-------------------+
+6 rows in set (0.65 sec)
+mysql>#2
+mysql> select * from student order by SName;
++------+----------------------+------------+-------+-------+-------+
+| SID  | SName                | Department | Mark1 | Mark2 | Mark3 |
++------+----------------------+------------+-------+-------+-------+
+|    3 | ABHILASH             | CST        | 29    | 27    | 26    |
+|    4 | ABHILASH MANGO PATEL | CST        | 29    | 27    | 30    |
+|    2 | ADITYA               | CSE        | 28    | 27    | 26    |
+|    1 | ADITYA DAS           | CSE        | 23    | 24    | 25    |
+|    5 | aus                  | CST        | 29    | 27    | 30    |
+|    5 | lus                  | CST        | 29    | 27    | 30    |
++------+----------------------+------------+-------+-------+-------+
+6 rows in set (0.00 sec)
+mysql> select Department from student group by Department;
++------------+
+| Department |
++------------+
+| CSE        |
+| CST        |
++------------+
+2 rows in set (0.00 sec)
+
+mysql>#3
+mysql> select distinct(Department) from student;
++------------+
+| Department |
++------------+
+| CSE        |
+| CST        |
++------------+
+
+mysql>4
+mysql> select SName from student where Sname like "_u%s";
++-------+
+| SName |
++-------+
+| aus   |
+| lus   |
++-------+
+

@@ -1,0 +1,382 @@
+(crated by master aditya das)
+
+create a new user from root employee and also create a new table named as EMP data
+attributes in emp are :-
+EiD,Ename , Esal,Edesignation 
+
+1. consider EID as primary key 
+2. Employee can able add and remove some data from emp_data
+3.Search for the employees for the between 15k to 20k 
+4.search for the employees placed on the esignation team lead and take support
+5. check for the distinct value present in each field 
+6.Update asscessbility of user employee and update two records from emp data through user EMPLOYEE
+7.Display the employee ID's column as SERIAL ID
+
+solution)
+
+mysql side:-
+
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use student;
+Database changed
+mysql> create user 'EMPLOYEE' identified by '1234';
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> create table EMP_DATA
+    -> (
+    -> EID varchar(20),
+    -> ENAME varchar(20),
+    -> ESALARY varchar(20),
+    -> EDESIGNATION varchar(40)
+    -> );
+Query OK, 0 rows affected (0.46 sec)
+
+mysql> alter table EMP_DATA modify EID varchar(20) primary key;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc EMP_DATA;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| EID          | varchar(20) | NO   | PRI | NULL    |       |
+| ENAME        | varchar(20) | YES  |     | NULL    |       |
+| ESALARY      | varchar(20) | YES  |     | NULL    |       |
+| EDESIGNATION | varchar(40) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE902","ADITYA DAS","50000","CEO");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE966","ABHILASH","50000","FOUNDER");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE346","MALAYA","15000","TAKE SUPPORT");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE346","MALAYA MAHIR","25000","TEAM LEAD");
+ERROR 1062 (23000): Duplicate entry '22CSE346' for key 'emp_data.PRIMARY'
+mysql> insert into EMP_DATA VALUES("22CSE3406","MALAYA MAHIR","250000","TEAM LEAD");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE1066","PANKAJ","2500","EMPLOYEE1");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106Q6","PANKAAJ","250","EMPLOYEE2");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106OQ6","AJAY","20","EMPLOYEE3");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106OQ63","AJAY BHAI","2","EMPLOYEE4");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106OQA63","SALU BHAI","2.5","EMPLOYEE5");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106OQAA63","SALLU BHAI","20000","EMPLOYEE6");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> SELECT * FROM EMP_DATA;
++----------------+--------------+---------+--------------+
+| EID            | ENAME        | ESALARY | EDESIGNATION |
++----------------+--------------+---------+--------------+
+| 22CSE1066      | PANKAJ       | 2500    | EMPLOYEE1    |
+| 22CSE106OQ6    | AJAY         | 20      | EMPLOYEE3    |
+| 22CSE106OQ63   | AJAY BHAI    | 2       | EMPLOYEE4    |
+| 22CSE106OQA63  | SALU BHAI    | 2.5     | EMPLOYEE5    |
+| 22CSE106OQAA63 | SALLU BHAI   | 20000   | EMPLOYEE6    |
+| 22CSE106Q6     | PANKAAJ      | 250     | EMPLOYEE2    |
+| 22CSE3406      | MALAYA MAHIR | 250000  | TEAM LEAD    |
+| 22CSE346       | MALAYA       | 15000   | TAKE SUPPORT |
+| 22CSE902       | ADITYA DAS   | 50000   | CEO          |
+| 22CSE966       | ABHILASH     | 50000   | FOUNDER      |
++----------------+--------------+---------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> GRANT SELECT,INSERT,DELETE FROM EMP_DATA TO EMPLOYEE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM EMP_DATA TO EMPLOYEE' at line 1
+mysql> GRANT SELECT,INSERT,DELETE ON EMP_DATA TO EMPLOYEE;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> SHOW GRANTS FOR EMPLOYEE;
++------------------------------------------------------------------------+
+| Grants for EMPLOYEE@%                                                  |
++------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `EMPLOYEE`@`%`                                   |
+| GRANT SELECT, INSERT, DELETE ON `student`.`emp_data` TO `EMPLOYEE`@`%` |
++------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> #6
+mysql> grant update on emp_data to EMPLOYEE;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SHOW GRANTS FOR EMPLOYEE;
++--------------------------------------------------------------------------------+
+| Grants for EMPLOYEE@%                                                          |
++--------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `EMPLOYEE`@`%`                                           |
+| GRANT SELECT, INSERT, UPDATE, DELETE ON `student`.`emp_data` TO `EMPLOYEE`@`%` |
++--------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use student;
+Database changed
+mysql> create user 'EMPLOYEE' identified by '1234';
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> create table EMP_DATA
+    -> (
+    -> EID varchar(20),
+    -> ENAME varchar(20),
+    -> ESALARY varchar(20),
+    -> EDESIGNATION varchar(40)
+    -> );
+Query OK, 0 rows affected (0.46 sec)
+
+mysql> alter table EMP_DATA modify EID varchar(20) primary key;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc EMP_DATA;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| EID          | varchar(20) | NO   | PRI | NULL    |       |
+| ENAME        | varchar(20) | YES  |     | NULL    |       |
+| ESALARY      | varchar(20) | YES  |     | NULL    |       |
+| EDESIGNATION | varchar(40) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE902","ADITYA DAS","50000","CEO");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE966","ABHILASH","50000","FOUNDER");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE346","MALAYA","15000","TAKE SUPPORT");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE3406","MALAYA MAHIR","250000","TEAM LEAD");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE1066","PANKAJ","2500","EMPLOYEE1");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106Q6","PANKAAJ","250","EMPLOYEE2");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106OQ6","AJAY","20","EMPLOYEE3");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106OQ63","AJAY BHAI","2","EMPLOYEE4");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106OQA63","SALU BHAI","2.5","EMPLOYEE5");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into EMP_DATA VALUES("22CSE106OQAA63","SALLU BHAI","20000","EMPLOYEE6");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> SELECT * FROM EMP_DATA;
++----------------+--------------+---------+--------------+
+| EID            | ENAME        | ESALARY | EDESIGNATION |
++----------------+--------------+---------+--------------+
+| 22CSE1066      | PANKAJ       | 2500    | EMPLOYEE1    |
+| 22CSE106OQ6    | AJAY         | 20      | EMPLOYEE3    |
+| 22CSE106OQ63   | AJAY BHAI    | 2       | EMPLOYEE4    |
+| 22CSE106OQA63  | SALU BHAI    | 2.5     | EMPLOYEE5    |
+| 22CSE106OQAA63 | SALLU BHAI   | 20000   | EMPLOYEE6    |
+| 22CSE106Q6     | PANKAAJ      | 250     | EMPLOYEE2    |
+| 22CSE3406      | MALAYA MAHIR | 250000  | TEAM LEAD    |
+| 22CSE346       | MALAYA       | 15000   | TAKE SUPPORT |
+| 22CSE902       | ADITYA DAS   | 50000   | CEO          |
+| 22CSE966       | ABHILASH     | 50000   | FOUNDER      |
++----------------+--------------+---------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> GRANT SELECT,INSERT,DELETE ON EMP_DATA TO EMPLOYEE;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> SHOW GRANTS FOR EMPLOYEE;
++------------------------------------------------------------------------+
+| Grants for EMPLOYEE@%                                                  |
++------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `EMPLOYEE`@`%`                                   |
+| GRANT SELECT, INSERT, DELETE ON `student`.`emp_data` TO `EMPLOYEE`@`%` |
++------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> #6
+mysql> grant update on emp_data to EMPLOYEE;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SHOW GRANTS FOR EMPLOYEE;
++--------------------------------------------------------------------------------+
+| Grants for EMPLOYEE@%                                                          |
++--------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `EMPLOYEE`@`%`                                           |
+| GRANT SELECT, INSERT, UPDATE, DELETE ON `student`.`emp_data` TO `EMPLOYEE`@`%` |
++--------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+cmd-
+
+Microsoft Windows [Version 10.0.22621.2215]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\ADITYA DAS>cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u EMPLOYEE -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
+| student            |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> use student;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| emp_data          |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> desc emp_data;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| EID          | varchar(20) | NO   | PRI | NULL    |       |
+| ENAME        | varchar(20) | YES  |     | NULL    |       |
+| ESALARY      | varchar(20) | YES  |     | NULL    |       |
+| EDESIGNATION | varchar(40) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from emp_data where ESALARY between 15000 and 20000;
++----------------+------------+---------+--------------+
+| EID            | ENAME      | ESALARY | EDESIGNATION |
++----------------+------------+---------+--------------+
+| 22CSE106OQAA63 | SALLU BHAI | 20000   | EMPLOYEE6    |
+| 22CSE346       | MALAYA     | 15000   | TAKE SUPPORT |
++----------------+------------+---------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp_data where EDESIGNATION IN ('TEAM LEAD','TAKE SUPPORT');
++-----------+--------------+---------+--------------+
+| EID       | ENAME        | ESALARY | EDESIGNATION |
++-----------+--------------+---------+--------------+
+| 22CSE3406 | MALAYA MAHIR | 250000  | TEAM LEAD    |
+| 22CSE346  | MALAYA       | 15000   | TAKE SUPPORT |
++-----------+--------------+---------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select distinct EDESIGNATION from emp_data;
++--------------+
+| EDESIGNATION |
++--------------+
+| EMPLOYEE1    |
+| EMPLOYEE3    |
+| EMPLOYEE4    |
+| EMPLOYEE5    |
+| EMPLOYEE6    |
+| EMPLOYEE2    |
+| TEAM LEAD    |
+| TAKE SUPPORT |
+| CEO          |
+| FOUNDER      |
++--------------+
+10 rows in set (0.00 sec)
+
+mysql> update emp_data set ESALARY="123456" where EID="22CSE106OQA63";
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp_data set ESALARY="120000" where EID="22CSE106OQ6";
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp_data set ESALARY="120000" where EID="22CSE106Q6";
+Query OK, 1 row affected (0.34 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp_data;
++----------------+--------------+---------+--------------+
+| EID            | ENAME        | ESALARY | EDESIGNATION |
++----------------+--------------+---------+--------------+
+| 22CSE1066      | PANKAJ       | 2500    | EMPLOYEE1    |
+| 22CSE106OQ6    | AJAY         | 120000  | EMPLOYEE3    |
+| 22CSE106OQ63   | AJAY BHAI    | 2       | EMPLOYEE4    |
+| 22CSE106OQA63  | SALU BHAI    | 123456  | EMPLOYEE5    |
+| 22CSE106OQAA63 | SALLU BHAI   | 20000   | EMPLOYEE6    |
+| 22CSE106Q6     | PANKAAJ      | 120000  | EMPLOYEE2    |
+| 22CSE3406      | MALAYA MAHIR | 250000  | TEAM LEAD    |
+| 22CSE346       | MALAYA       | 15000   | TAKE SUPPORT |
+| 22CSE902       | ADITYA DAS   | 50000   | CEO          |
+| 22CSE966       | ABHILASH     | 50000   | FOUNDER      |
++----------------+--------------+---------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> select EID as SERIAL_ID from emp_data;
++----------------+
+| SERIAL_ID      |
++----------------+
+| 22CSE1066      |
+| 22CSE106OQ6    |
+| 22CSE106OQ63   |
+| 22CSE106OQA63  |
+| 22CSE106OQAA63 |
+| 22CSE106Q6     |
+| 22CSE3406      |
+| 22CSE346       |
+| 22CSE902       |
+| 22CSE966       |
++----------------+
+10 rows in set (0.00 sec)

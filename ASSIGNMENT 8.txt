@@ -1,0 +1,100 @@
+#aditya das
+create two tables employees and details having attributes(eno,ename,esal) and (eno,eadd,edpt) respectivily
+1. create a table emp and copy the employeees data
+2.on emp data add two columns(on same command)as (eage,epsot)
+3.data between emp and details
+
+solution:-
+
+mysql> show databases;
++----------------------------+
+| Database                   |
++----------------------------+
+| assign                     |
+| enterprise                 |
+| hospital_management_system |
+| information_schema         |
+| medtrack_system            |
+| medtrack_web               |
+| mysql                      |
+| performance_schema         |
+| student                    |
+| sys                        |
++----------------------------+
+10 rows in set (0.00 sec)
+
+mysql> use assign;
+Database changed
+mysql> create table employee
+    -> (
+    -> Eno int(20),
+    -> Ename varchar(20),
+    -> Esal varchar(20)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.98 sec)
+
+mysql> create table Details
+    -> (
+    -> Eno int(20),
+    -> Eaddress varchar(20),
+    -> Edept varchar(20)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.19 sec)
+
+mysql> #1
+mysql> create table emp as select * from employee;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| Eno   | int         | YES  |     | NULL    |       |
+| Ename | varchar(20) | YES  |     | NULL    |       |
+| Esal  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> #2
+mysql> alter table emp add eage int(20);
+Query OK, 0 rows affected, 1 warning (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> alter table emp add epost varchar(20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| Eno   | int         | YES  |     | NULL    |       |
+| Ename | varchar(20) | YES  |     | NULL    |       |
+| Esal  | varchar(20) | YES  |     | NULL    |       |
+| eage  | int         | YES  |     | NULL    |       |
+| epost | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> #insert data in emp
+
+mysql> insert into emp values(123,"ADITYA DAS","20000",18,"EMP1"),(124,"Abhilash","20000",43,"EMP2"),(125,"sallubhai","12312",19,"EMP3");
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> #insert data in details
+
+mysql> insert into details values(123,"gwalior","CSE"),(124,"GUNUPUR","CST"),(127,"MUMBAI","CAR");
+Query OK, 3 rows affected (0.36 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> #3
+mysql> select * from emp INNER JOIN details on emp.eno=details.eno;
++------+------------+-------+------+-------+------+----------+-------+
+| Eno  | Ename      | Esal  | eage | epost | Eno  | Eaddress | Edept |
++------+------------+-------+------+-------+------+----------+-------+
+|  123 | ADITYA DAS | 20000 |   18 | EMP1  |  123 | gwalior  | CSE   |
+|  124 | Abhilash   | 20000 |   43 | EMP2  |  124 | GUNUPUR  | CST   |
++------+------------+-------+------+-------+------+----------+-------+
+2 rows in set (0.00 sec)

@@ -1,0 +1,435 @@
+mysql> #MYSQL BUILT IN FUNCTION
+mysql>
+mysql> #String
+mysql> #upper
+mysql> select upper("aditya");
++-----------------+
+| upper("aditya") |
++-----------------+
+| ADITYA          |
++-----------------+
+1 row in set (0.11 sec)
+
+mysql> #lower
+mysql> select lower("ADITYA");
++-----------------+
+| lower("ADITYA") |
++-----------------+
+| aditya          |
++-----------------+
+1 row in set (0.02 sec)
+
+mysql> #concate
+mysql> select concat("aditya","das");
++------------------------+
+| concat("aditya","das") |
++------------------------+
+| adityadas              |
++------------------------+
+1 row in set (0.09 sec)
+
+mysql> #concate with separator
+mysql> select concat_ws(" ","aditya","das");
++-------------------------------+
+| concat_ws(" ","aditya","das") |
++-------------------------------+
+| aditya das                    |
++-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws("*","aditya","das");
++-------------------------------+
+| concat_ws("*","aditya","das") |
++-------------------------------+
+| aditya*das                    |
++-------------------------------+
+1 row in set (0.00 sec)
+
+-->index start from 1 here
+
+mysql> #Left
+mysql> select left("Apple",3);
++-----------------+
+| left("Apple",3) |
++-----------------+
+| App             |
++-----------------+
+1 row in set (0.03 sec)
+
+mysql> #Right
+mysql> select Right("Apple",3);
++------------------+
+| Right("Apple",3) |
++------------------+
+| ple              |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> #Mid
+mysql> select mid("Apple",3);
++----------------+
+| mid("Apple",3) |
++----------------+
+| ple            |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> #ltirm
+mysql> select ltrim("    HELLO MANGO     ");
++-------------------------------+
+| ltrim("    HELLO MANGO     ") |
++-------------------------------+
+| HELLO MANGO                   |
++-------------------------------+
+1 row in set (0.03 sec)
+
+mysql> #rtim
+mysql> select rtrim("    HELLO MANGO     ");
++-------------------------------+
+| rtrim("    HELLO MANGO     ") |
++-------------------------------+
+|     HELLO MANGO               |
++-------------------------------+
+1 row in set (0.10 sec)
+
+mysql> #trim
+
+mysql> select trim("    HELLO MANGO     ");
++------------------------------+
+| trim("    HELLO MANGO     ") |
++------------------------------+
+| HELLO MANGO                  |
++------------------------------+
+1 row in set (0.00 sec)
+_____________________________________________________________________________________________________________
+Q1.create a table student with attributes-->FIRST NAME AND LAST NAME 
+and diplay first name,last , full name
+
+solutions)
+
+mysql> use shop;
+Database changed
+mysql> create table NAME
+    -> (
+    -> First_name varchar(20),
+    -> Last_name varchar(20)
+    -> );
+Query OK, 0 rows affected (0.33 sec)
+
+mysql> insert into NAME value("ADITYA","DAS");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into NAME value("ABHILASH","PATEL");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into NAME value("MANGO","PATEL");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into NAME value("PEPSI","PATEL");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from NAME;
++------------+-----------+
+| First_name | Last_name |
++------------+-----------+
+| ADITYA     | DAS       |
+| ABHILASH   | PATEL     |
+| MANGO      | PATEL     |
+| PEPSI      | PATEL     |
++------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select First_name,Last_name,concat_ws(" ",First_name,Last_name) from Name;
++------------+-----------+-------------------------------------+
+| First_name | Last_name | concat_ws(" ",First_name,Last_name) |
++------------+-----------+-------------------------------------+
+| ADITYA     | DAS       | ADITYA DAS                          |
+| ABHILASH   | PATEL     | ABHILASH PATEL                      |
+| MANGO      | PATEL     | MANGO PATEL                         |
+| PEPSI      | PATEL     | PEPSI PATEL                         |
++------------+-----------+-------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select First_name,Last_name,concat_ws(" ",First_name,Last_name) as FULL_NAME from Name;
++------------+-----------+----------------+
+| First_name | Last_name | FULL_NAME      |
++------------+-----------+----------------+
+| ADITYA     | DAS       | ADITYA DAS     |
+| ABHILASH   | PATEL     | ABHILASH PATEL |
+| MANGO      | PATEL     | MANGO PATEL    |
+| PEPSI      | PATEL     | PEPSI PATEL    |
++------------+-----------+----------------+
+4 rows in set (0.00 sec)
+
+
+_________________________________________________________________________________________________________
+
+mysql> #Numeric function
+mysql> #abs
+mysql> select abs(-1000);
++------------+
+| abs(-1000) |
++------------+
+|       1000 |
++------------+
+1 row in set (0.11 sec)
+
+mysql> select abs(1000);
++-----------+
+| abs(1000) |
++-----------+
+|      1000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> #mod
+mysql> select mod(5,2);
++----------+
+| mod(5,2) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select mod(10,4);
++-----------+
+| mod(10,4) |
++-----------+
+|         2 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> #round
+-->1,2,3,4 will decrease the value by one and 5,6,7,8,9 will add one to number
+-->round(x,y) here x will be floating number and y will show how much digit you want to show after decimal point
+-->if value of y is -1,-2,-3,-4 will have same property as before after the rest of number will display 0 as output
+
+mysql> select round(2500.21,2);
++------------------+
+| round(2500.21,2) |
++------------------+
+|          2500.21 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select round(2500.2121,2);
++--------------------+
+| round(2500.2121,2) |
++--------------------+
+|            2500.21 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select round(2500.2121,3);
++--------------------+
+| round(2500.2121,3) |
++--------------------+
+|           2500.212 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select round(2500.2);
++---------------+
+| round(2500.2) |
++---------------+
+|          2500 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select round(2500.4);
++---------------+
+| round(2500.4) |
++---------------+
+|          2500 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select round(2500.5);
++---------------+
+| round(2500.5) |
++---------------+
+|          2501 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select round(2500.6);
++---------------+
+| round(2500.6) |
++---------------+
+|          2501 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select round(2500.2121,-2);
++---------------------+
+| round(2500.2121,-2) |
++---------------------+
+|                2500 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select round(2500.2121,-5);
++---------------------+
+| round(2500.2121,-5) |
++---------------------+
+|                   0 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> #power as pow
+mysql> select pow(2,3);
++----------+
+| pow(2,3) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> #square root as sqrt
+mysql> select sqrt(81);
++----------+
+| sqrt(81) |
++----------+
+|        9 |
++----------+
+1 row in set (0.02 sec)
+
+mysql> select sqrt(-81);
++-----------+
+| sqrt(-81) |
++-----------+
+|      NULL |
++-----------+
+1 row in set (0.00 sec)\
+
+mysql> #Time_date function
+mysql> select NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2023-11-04 17:15:58 |
++---------------------+
+1 row in set (0.03 sec)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2023-11-04 |
++------------+
+1 row in set (0.10 sec)
+
+mysql> select Timestamp(Now());
++---------------------+
+| Timestamp(Now())    |
++---------------------+
+| 2023-11-04 17:20:40 |
++---------------------+
+1 row in set (0.07 sec)
+
+mysql> select Now(1);
++-----------------------+
+| Now(1)                |
++-----------------------+
+| 2023-11-04 17:20:56.6 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select Now(2);
++------------------------+
+| Now(2)                 |
++------------------------+
+| 2023-11-04 17:21:01.56 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select Now(3);
++-------------------------+
+| Now(3)                  |
++-------------------------+
+| 2023-11-04 17:21:04.877 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select Now(4);
++--------------------------+
+| Now(4)                   |
++--------------------------+
+| 2023-11-04 17:21:07.8681 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select Now(5);
++---------------------------+
+| Now(5)                    |
++---------------------------+
+| 2023-11-04 17:21:12.09953 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select Now(6);
++----------------------------+
+| Now(6)                     |
++----------------------------+
+| 2023-11-04 17:21:16.610277 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select Now(7);
+ERROR 1426 (42000): Too-big precision 7 specified for 'now'. Maximum is 6.
+
+mysql>#rest of date and time functions below
+mysql> select day(current_date());
++---------------------+
+| day(current_date()) |
++---------------------+
+|                   4 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select year(current_date());
++----------------------+
+| year(current_date()) |
++----------------------+
+|                 2023 |
++----------------------+
+1 row in set (0.09 sec)
+
+mysql> select month(current_date());
++-----------------------+
+| month(current_date()) |
++-----------------------+
+|                    11 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select week(current_date());
++----------------------+
+| week(current_date()) |
++----------------------+
+|                   44 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> select weekday(current_date());
++-------------------------+
+| weekday(current_date()) |
++-------------------------+
+|                       5 |
++-------------------------+
+1 row in set (0.04 sec)
+
+________________________________________________
+create a table product having attributes like manufacturing date,Product details (soap,100grm)
+
+conditions:-
+
+create one table which contain date,day,month,year,weekday,product_name,quantity in different columns separatly
+
+
+
+
+
+
+
+

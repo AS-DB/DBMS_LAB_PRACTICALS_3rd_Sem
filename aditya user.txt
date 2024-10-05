@@ -1,0 +1,101 @@
+Microsoft Windows [Version 10.0.22621.2070]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u aditya -p
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 51
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
+| student            |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> use student;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| info              |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> desc info;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Name    | varchar(20) | YES  |     | NULL    |       |
+| Address | varchar(20) | YES  |     | NULL    |       |
+| ID      | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from info;
++----------+---------+--------+
+| Name     | Address | ID     |
++----------+---------+--------+
+| aditya   | gunupur |   1234 |
+| pankaj   | gunupur |  12345 |
+| abhilash | gunupur | 123456 |
++----------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> show grants for 'aditya';
++------------------------------------------------------------------+
+| Grants for aditya@%                                              |
++------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `aditya`@`%`                               |
+| GRANT SELECT, INSERT, UPDATE ON `student`.`info` TO `aditya`@`%` |
++------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> update info set Name="adityadas" where ID=1234567;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from info;
++-----------+---------+---------+
+| Name      | Address | ID      |
++-----------+---------+---------+
+| aditya    | gunupur |    1234 |
+| pankaj    | gunupur |   12345 |
+| abhilash  | gunupur |  123456 |
+| adityadas | gunpur  | 1234567 |
++-----------+---------+---------+
+4 rows in set (0.00 sec)
+
+mysql> update info set ID=123321 where Name="adityadas";
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from info;
++-----------+---------+--------+
+| Name      | Address | ID     |
++-----------+---------+--------+
+| aditya    | gunupur |   1234 |
+| pankaj    | gunupur |  12345 |
+| abhilash  | gunupur | 123456 |
+| adityadas | gunpur  | 123321 |
++-----------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> delete from info where ID=123321;
+ERROR 1142 (42000): DELETE command denied to user 'aditya'@'localhost' for table 'info'
+
+mysql> insert into info value("malaya","username",1234);
+ERROR 1142 (42000): INSERT command denied to user 'aditya'@'localhost' for table 'info'

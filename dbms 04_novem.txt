@@ -1,0 +1,73 @@
+mysql> #MYSQL BUILT IN FUNCTION
+mysql>
+mysql> #String
+mysql> #upper
+mysql> select upper("aditya");
++-----------------+
+| upper("aditya") |
++-----------------+
+| ADITYA          |
++-----------------+
+1 row in set (0.11 sec)
+
+mysql> #lower
+mysql> select lower("ADITYA");
++-----------------+
+| lower("ADITYA") |
++-----------------+
+| aditya          |
++-----------------+
+1 row in set (0.02 sec)
+
+mysql> #concate
+mysql> select concat("aditya","das");
++------------------------+
+| concat("aditya","das") |
++------------------------+
+| adityadas              |
++------------------------+
+1 row in set (0.09 sec)
+
+mysql> #concate with separator
+mysql> select concat_ws(" ","aditya","das");
++-------------------------------+
+| concat_ws(" ","aditya","das") |
++-------------------------------+
+| aditya das                    |
++-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws("*","aditya","das");
++-------------------------------+
+| concat_ws("*","aditya","das") |
++-------------------------------+
+| aditya*das                    |
++-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> #Left
+mysql> select left("Apple",3);
++-----------------+
+| left("Apple",3) |
++-----------------+
+| App             |
++-----------------+
+1 row in set (0.03 sec)
+
+mysql> #Right
+mysql> select Right("Apple",3);
++------------------+
+| Right("Apple",3) |
++------------------+
+| ple              |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> #Mid
+mysql> select mid("Apple",3);
++----------------+
+| mid("Apple",3) |
++----------------+
+| ple            |
++----------------+
+1 row in set (0.00 sec)

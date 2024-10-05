@@ -1,0 +1,134 @@
+///path of mysql bin>mysql -u username -p
+
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 49
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select user from mysql.user;
++------------------+
+| user             |
++------------------+
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| root             |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> show databases;
++----------------------------+
+| Database                   |
++----------------------------+
+| hospital_management_system |
+| information_schema         |
+| mysql                      |
+| performance_schema         |
+| sys                        |
++----------------------------+
+5 rows in set (0.00 sec)
+
+mysql> use  hospital_management_system;
+Database changed
+mysql> show tables;
++--------------------------------------+
+| Tables_in_hospital_management_system |
++--------------------------------------+
+| patient                              |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+
+mysql> create user 'aditya' identified by '12345';
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> select user from mysql.user;
++------------------+
+| user             |
++------------------+
+| aditya           |
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| root             |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> use aditya;
+ERROR 1049 (42000): Unknown database 'aditya'
+mysql> select user();
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.09 sec)
+
+mysql> create database STUDENT;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> show databases;
++----------------------------+
+| Database                   |
++----------------------------+
+| hospital_management_system |
+| information_schema         |
+| mysql                      |
+| performance_schema         |
+| student                    |
+| sys                        |
++----------------------------+
+6 rows in set (0.00 sec)
+
+mysql> create table INFO
+    -> (
+    -> Name varchar(20),
+    -> Address varchar(20),
+    -> ID int(20)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.20 sec)
+
+mysql> insert into info values("aditya","gunupur",1234),("pankaj","gunupur",12345),("abhilash","gunupur",123456);
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from info;
++----------+---------+--------+
+| Name     | Address | ID     |
++----------+---------+--------+
+| aditya   | gunupur |   1234 |
+| pankaj   | gunupur |  12345 |
+| abhilash | gunupur | 123456 |
++----------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select user();
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> grant insert,select,update on info to 'aditya';
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> revoke insert on info from 'aditya';
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show grants for 'aditya';
++----------------------------------------------------------+
+| Grants for aditya@%                                      |
++----------------------------------------------------------+
+| GRANT USAGE ON *.* TO `aditya`@`%`                       |
+| GRANT SELECT, UPDATE ON `student`.`info` TO `aditya`@`%` |
++----------------------------------------------------------+
+2 rows in set (0.00 sec)

@@ -1,0 +1,97 @@
+create two tables 
+1. employee -->EID,ENAME,ESAL,EADD
+2. DEPT --> DeptNO,Dname,Eid
+
+conditions:- 
+
+1. update the employee id 103 to 301 and update the name ram to shyam and change will reflect to dept table (using cascade operation)
+
+2. delete the EID 105 and make it null in dept table and make it null (using set null operation)
+
+HINT:-
+1.cascade action
+2.set null action
+
+solu)
+
+mysql> create table emp1
+    -> (
+    -> EID int(20) primary key,
+    -> ENAME varchar (20),
+    -> ESAL varchar(20),
+    -> EADDRESS varchar(20)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.44 sec)
+
+create table
+    -> dept2
+    -> (DeptNo int(20),
+    -> DNAME varchar(20),
+    -> EID int(20));
+Query OK, 0 rows affected, 2 warnings (0.18 sec)
+
+mysql> desc emp1;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EID      | int         | NO   | PRI | NULL    |       |
+| ENAME    | varchar(20) | YES  |     | NULL    |       |
+| ESAL     | varchar(20) | YES  |     | NULL    |       |
+| EADDRESS | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql>#inserting data
+
+INSERT INTO emp1 VALUES (1, 'John Doe', '50000', '123 Main Street'),(2, 'Jane Smith', '60000', '456 Elm Street'),(3, 'Bob Johnson', '55000', '789 Oak Street'),(4, 'Alice Brown', '62000', '101 Pine Street'),(5, 'Eve Wilson', '53000', '202 Cedar Street');
+Query OK, 5 rows affected (0.13 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+#1
+mysql> create table dept2
+    -> (
+    -> DEPTNO int(20),
+    -> DNAME varchar(20),
+    -> EID int NOT NULL,
+    -> foreign key (EID) references emp1 (EID) ON UPDATE CASCADE ON DELETE CASCADE);
+Query OK, 0 rows affected, 1 warning (0.14 sec)
+
+mysql> INSERT INTO dept2 (DeptNo, DNAME, EID)
+    -> VALUES
+    ->   (101, 'HR', 1),
+    ->   (102, 'Finance', 2),
+    ->   (103, 'Engineering', 3),
+    ->   (101, 'HR', 4),
+    ->   (104, 'Marketing', 5);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept2;
++--------+-------------+-----+
+| DEPTNO | DNAME       | EID |
++--------+-------------+-----+
+|    101 | HR          |   1 |
+|    102 | Finance     |   2 |
+|    103 | Engineering |   3 |
+|    101 | HR          |   4 |
+|    104 | Marketing   |   5 |
++--------+-------------+-----+
+5 rows in set (0.00 sec)
+
+mysql> update emp1 set EID=500,ENAME="ADITYA" where ESAL="50000";
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from dept2;
++--------+-------------+-----+
+| DEPTNO | DNAME       | EID |
++--------+-------------+-----+
+|    101 | HR          | 500 |
+|    102 | Finance     |   2 |
+|    103 | Engineering |   3 |
+|    101 | HR          |   4 |
+|    104 | Marketing   |   5 |
++--------+-------------+-----+
+5 rows in set (0.00 sec)
+
+mysql>drop table dept2;

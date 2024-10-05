@@ -1,0 +1,75 @@
+mysql> create table product
+    -> (
+    -> PID int(20),
+    -> Manufacturing_date date
+    -> );
+Query OK, 0 rows affected, 1 warning (0.12 sec)
+
+mysql> desc product;
++--------------------+------+------+-----+---------+-------+
+| Field              | Type | Null | Key | Default | Extra |
++--------------------+------+------+-----+---------+-------+
+| PID                | int  | YES  |     | NULL    |       |
+| Manufacturing_date | date | YES  |     | NULL    |       |
++--------------------+------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> create table details
+    -> (
+    -> PID int(20),
+    -> PNAME varchar(20),
+    -> Quantity int(200)
+    -> );
+
+Query OK, 0 rows affected, 2 warnings (0.24 sec)
+
+mysql> desc details;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| PID      | int         | YES  |     | NULL    |       |
+| PNAME    | varchar(20) | YES  |     | NULL    |       |
+| Quantity | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+#insert data
+
+mysql> insert into product value(001,"2023-09-21");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into product value(002,"2023-08-23");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into product value(003,"2023-11-25");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into product value(004,"2023-10-13");
+Query OK, 1 row affected (0.12 sec)
+
+#insert data
+
+mysql> insert into details value(001,"Salt",100);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into details value(002,"Sugar",200);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into details value(003,"Daal",200);
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into details value(004,"RICE",150);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> #main code
+mysql> select date(product.Manufacturing_date) as DATE,day(product.Manufacturing_date) as DAY,month(product.Manufacturing_date) as Month,year(product.Manufacturing_date) as YEAR,weekday(product.Manufacturing_date) as WEEKDAY,details.PNAME,details.Quantity from product,details where product.PID= details.PID;
++------------+------+-------+------+---------+-------+----------+
+| DATE       | DAY  | Month | YEAR | WEEKDAY | PNAME | Quantity |
++------------+------+-------+------+---------+-------+----------+
+| 2023-09-21 |   21 |     9 | 2023 |       3 | Salt  |      100 |
+| 2023-08-23 |   23 |     8 | 2023 |       2 | Sugar |      200 |
+| 2023-11-25 |   25 |    11 | 2023 |       5 | Daal  |      200 |
+| 2023-10-13 |   13 |    10 | 2023 |       4 | RICE  |      150 |
++------------+------+-------+------+---------+-------+----------+
+4 rows in set (0.11 sec)
+
